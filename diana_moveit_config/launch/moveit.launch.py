@@ -105,17 +105,33 @@ def generate_robot_nodes(context, *args, **kwargs):
     kinematics_yaml = load_yaml(
         'diana_moveit_config', 'config/'+robot_type_str+'/kinematics.yaml'
     )
+    kinematics_config = {
+        'robot_description_kinematics': kinematics_yaml
+    }
 
-    # Planning Functionality
+    joint_limits_yaml = load_yaml(
+        'diana_moveit_config', 'config/'+robot_type_str+'/joint_limits.yaml'
+    )
+    joint_limits_config = {
+        'robot_description_planning': joint_limits_yaml
+    }
+
+    # Planning Functionality. Jazzy MoveIt uses a list of planning plugins and
+    # splits time parameterization into a response adapter.
     ompl_planning_pipeline_config = {
         'move_group': {
-            'planning_plugin': 'ompl_interface/OMPLPlanner',
-            'request_adapters': 'default_planner_request_adapters/AddTimeOptimalParameterization '
-                                'default_planner_request_adapters/ResolveConstraintFrames '
-                                'default_planner_request_adapters/FixWorkspaceBounds '
-                                'default_planner_request_adapters/FixStartStateBounds '
-                                'default_planner_request_adapters/FixStartStateCollision '
-                                'default_planner_request_adapters/FixStartStatePathConstraints',
+            'planning_plugins': ['ompl_interface/OMPLPlanner'],
+            'request_adapters': [
+                'default_planning_request_adapters/ResolveConstraintFrames',
+                'default_planning_request_adapters/ValidateWorkspaceBounds',
+                'default_planning_request_adapters/CheckStartStateBounds',
+                'default_planning_request_adapters/CheckStartStateCollision',
+            ],
+            'response_adapters': [
+                'default_planning_response_adapters/AddTimeOptimalParameterization',
+                'default_planning_response_adapters/ValidateSolution',
+                'default_planning_response_adapters/DisplayMotionPath',
+            ],
             'start_state_max_bounds_error': 0.1,
         }
     }
@@ -157,7 +173,8 @@ def generate_robot_nodes(context, *args, **kwargs):
         parameters=[
             robot_description,
             robot_description_semantic,
-            kinematics_yaml,
+            kinematics_config,
+            joint_limits_config,
             ompl_planning_pipeline_config,
             trajectory_execution,
             moveit_controllers,
@@ -180,7 +197,7 @@ def generate_robot_nodes(context, *args, **kwargs):
             robot_description,
             robot_description_semantic,
             ompl_planning_pipeline_config,
-            kinematics_yaml,
+            kinematics_config,
         ],
         condition=IfCondition(LaunchConfiguration('use_rviz')),
     )

@@ -1,8 +1,9 @@
 services:
-  diana_ros2_humble:
+  diana_ros2_jazzy:
     build:
       context: .
       dockerfile: Dockerfile
+      network: host
       args:
         - USER_UID=${USER_UID}
         - USER_GID=${USER_GID}
@@ -20,6 +21,9 @@ services:
     environment:
       QT_X11_NO_MITSHM: 1
       DISPLAY: $DISPLAY
+      # Force gz-transport discovery over loopback; container multicast is
+      # unreliable, which otherwise breaks inter-process world discovery.
+      GZ_IP: 127.0.0.1
     cap_add:
       - SYS_NICE
     ulimits:

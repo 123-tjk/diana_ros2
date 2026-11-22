@@ -1,0 +1,24 @@
+# Acceleration bounds for MoveIt time parameterization. Values follow the
+# position-based deceleration limits in diana_description.
+joint_limits:
+  diana7g2_joint1:
+    has_acceleration_limits: true
+    max_acceleration: 6.0
+  diana7g2_joint2:
+    has_acceleration_limits: true
+    max_acceleration: 2.585
+  diana7g2_joint3:
+    has_acceleration_limits: true
+    max_acceleration: 3.5
+  diana7g2_joint4:
+    has_acceleration_limits: true
+    max_acceleration: 4.0
+  diana7g2_joint5:
+    has_acceleration_limits: true
+    max_acceleration: 17.0
+  diana7g2_joint6:
+    has_acceleration_limits: true
+    max_acceleration: 5.5
+  diana7g2_joint7:
+    has_acceleration_limits: true
+    max_acceleration: 17.0

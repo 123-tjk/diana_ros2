@@ -192,15 +192,15 @@ TEST_F(
 
     auto pos = findState(joint_name + "/" + k_position_controller);
     ASSERT_NE(pos, states.end()) << "Missing: " << joint_name << "/position";
-    ASSERT_EQ(pos->get_value(), 0.0);
+    ASSERT_EQ(pos->get_optional().value(), 0.0);
 
     auto vel = findState(joint_name + "/" + k_velocity_controller);
     ASSERT_NE(vel, states.end()) << "Missing: " << joint_name << "/velocity";
-    ASSERT_EQ(vel->get_value(), 0.0);
+    ASSERT_EQ(vel->get_optional().value(), 0.0);
 
     auto eff = findState(joint_name + "/" + k_effort_controller);
     ASSERT_NE(eff, states.end()) << "Missing: " << joint_name << "/effort";
-    ASSERT_EQ(eff->get_value(), 0.0);
+    ASSERT_EQ(eff->get_optional().value(), 0.0);
   }
 
   // Verify special interfaces exist
@@ -229,7 +229,7 @@ TEST_F(
 
   ASSERT_EQ(states[22].get_name(),
             "diana3/robot_model");     // joint states (3*7) + robot state (1)
-  EXPECT_NEAR(states[22].get_value(),  // joint states (3*7) + robot state (1)
+  EXPECT_NEAR(states[22].get_optional().value(),  // joint states (3*7) + robot state (1)
               *reinterpret_cast<double*>(&model_address),
               k_EPS);  // testing that the casted mock_model ptr
                        // is correctly pushed to state interface
@@ -244,7 +244,7 @@ TEST_F(
 
   ASSERT_EQ(states[21].get_name(),
             "diana3/robot_state");  // joint states (3*7) , then comes robot state
-  EXPECT_NEAR(states[21].get_value(), *reinterpret_cast<double*>(&robot_state_address),
+  EXPECT_NEAR(states[21].get_optional().value(), *reinterpret_cast<double*>(&robot_state_address),
               k_EPS);  // testing that the casted robot state ptr
                        // is correctly pushed to state interface
 }
@@ -266,7 +266,7 @@ TEST_F(DianaHardwareInterfaceTest,
       return state.get_name() == interface_names[i];
     });
     ASSERT_NE(it, states.end()) << "Missing: " << interface_names[i];
-    EXPECT_NEAR(it->get_value(), robot_state.K_F_ext_hat_K[i], k_EPS)
+    EXPECT_NEAR(it->get_optional().value(), robot_state.K_F_ext_hat_K[i], k_EPS)
         << "Value mismatch for " << interface_names[i];
   }
 }

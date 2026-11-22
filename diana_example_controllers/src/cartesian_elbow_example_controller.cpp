@@ -51,12 +51,12 @@ controller_interface::return_type CartesianElbowExampleController::update(
     // Get the initial pose
     initial_pose_configuration_ = diana_cartesian_pose_->getCurrentPoseMatrix();
 
-    initial_robot_time_ = state_interfaces_.back().get_value();
+    initial_robot_time_ = state_interfaces_.back().get_optional().value();
     elapsed_time_ = 0.0;
 
     initialization_flag_ = false;
   } else {
-    robot_time_ = state_interfaces_.back().get_value();
+    robot_time_ = state_interfaces_.back().get_optional().value();
     elapsed_time_ = robot_time_ - initial_robot_time_;
   }
 

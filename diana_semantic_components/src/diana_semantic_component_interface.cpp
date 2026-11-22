@@ -70,7 +70,7 @@ std::vector<double> DianaSemanticComponentInterface::get_values_state_interfaces
   std::vector<double> state_interface_values;
   // insert all the state_interface_values
   for (const auto& state_interface : state_interfaces_) {
-    state_interface_values.emplace_back(state_interface.get().get_value());
+    state_interface_values.emplace_back(state_interface.get().get_optional().value());
   }
   return state_interface_values;
 }
@@ -79,7 +79,7 @@ std::vector<double> DianaSemanticComponentInterface::get_values_command_interfac
   std::vector<double> command_interface_values;
   // insert all the command_interface_values
   for (const auto& command_interface : command_interfaces_) {
-    command_interface_values.emplace_back(command_interface.get().get_value());
+    command_interface_values.emplace_back(command_interface.get().get_optional().value());
   }
 
   return command_interface_values;
@@ -90,12 +90,12 @@ bool DianaSemanticComponentInterface::set_values(const std::vector<double>& valu
   if (values.capacity() != command_interfaces_.size()) {
     return false;
   }
-  // // insert all the values
+  bool success = true;
   for (size_t i = 0; i < command_interfaces_.size(); ++i) {
-    command_interfaces_[i].get().set_value(values[i]);
+    success &= command_interfaces_[i].get().set_value(values[i]);
   }
 
-  return true;
+  return success;
 }
 
 }  // namespace diana_semantic_components

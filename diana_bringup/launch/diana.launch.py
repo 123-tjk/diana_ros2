@@ -72,10 +72,10 @@
 
 import xacro
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
-from launch.actions import OpaqueFunction, Shutdown
+from launch.actions import (DeclareLaunchArgument, IncludeLaunchDescription,
+                            OpaqueFunction, Shutdown)
+from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.conditions import UnlessCondition, IfCondition
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
@@ -210,7 +210,7 @@ def generate_robot_nodes(context):
 def generate_launch_description():
     launch_args = [
         DeclareLaunchArgument(
-            'robot_type', default_value='', description='ID of the type of arm used'
+            'robot_type', default_value='diana7', description='ID of the type of arm used'
         ),
         DeclareLaunchArgument(
             'arm_prefix', default_value='', description='Prefix for arm topics'
@@ -220,7 +220,7 @@ def generate_launch_description():
         ),
         DeclareLaunchArgument(
             'robot_ip',
-            default_value='192.168.10.76',
+            default_value='192.168.20.2',
             description='Hostname or IP address of the robot',
         ),
         DeclareLaunchArgument(

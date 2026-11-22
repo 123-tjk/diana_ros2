@@ -114,26 +114,26 @@ are encouraged to report any bugs via the project issue tracker.
 This repository contains a `.repos` file (`dependency.repos`) that helps you
 clone the required dependencies for diana_ros2.
 
-_**diana_ros2**_ is built upon _**ROS 2 humble**_.
+_**diana_ros2**_ is built upon _**ROS 2 jazzy**_.
 
-To set up your ROS 2 environment, follow the official _**humble**_ installation
+To set up your ROS 2 environment, follow the official _**jazzy**_ installation
 instructions provided
-[**here**](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html).
+[**here**](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html).
 The guide discusses two main installation options: **Desktop** and **Bare Bones**.
 
 #### Choose **one** of the following:
 
-- **ROS 2 "Desktop Install"** (`ros-humble-desktop`)
+- **ROS 2 "Desktop Install"** (`ros-jazzy-desktop`)
   Includes a full ROS 2 installation with GUI tools and visualization packages
   (e.g., RViz and Gazebo).
   **Recommended** for users who need simulation or visualization capabilities.
 
-- **"ROS-Base Install (Bare Bones)"** (`ros-humble-ros-base`)
+- **"ROS-Base Install (Bare Bones)"** (`ros-jazzy-ros-base`)
   A minimal installation that includes only the core ROS 2 libraries.
   Suitable for resource-constrained environments or headless systems.
 
 ```bash
-# replace <YOUR CHOICE> with either ros-humble-desktop or ros-humble-ros-base
+# replace <YOUR CHOICE> with either ros-jazzy-desktop or ros-jazzy-ros-base
 sudo apt install <YOUR CHOICE>
 ```
 
@@ -150,7 +150,7 @@ Installing the **Desktop** or **Bare Bones** should automatically source the
 again:
 
 ```bash
-source /opt/ros/humble/setup.sh
+source /opt/ros/jazzy/setup.sh
 ```
 
 ### Local Machine Installation
@@ -184,7 +184,7 @@ source /opt/ros/humble/setup.sh
 
 5. **Detect and install project dependencies:**
    ```bash
-   rosdep install --from-paths src --ignore-src --rosdistro humble -y
+   rosdep install --from-paths src --ignore-src --rosdistro jazzy -y
    ```
 
 6. **Build:**
@@ -552,7 +552,7 @@ the libfranka documentation.
 Make sure both the ROS 2 environment and the built workspace are sourced:
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 source install/setup.bash
 ```
 

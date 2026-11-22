@@ -149,11 +149,11 @@ class TestGazeboTmrContract:
         for gz in gazebo_blocks:
             for plugin in gz.findall('.//plugin'):
                 plugin_text = ET.tostring(plugin, encoding='unicode')
-                if 'gz_ros2_control' in plugin_text or 'ign_ros2_control' in plugin_text:
+                if 'gz_ros2_control' in plugin_text:
                     plugin_found = True
                     break
         assert plugin_found, (
-            'Gazebo TMR variant must include a gz_ros2_control or ign_ros2_control plugin'
+            'Gazebo TMR variant must include a gz_ros2_control plugin'
         )
 
 

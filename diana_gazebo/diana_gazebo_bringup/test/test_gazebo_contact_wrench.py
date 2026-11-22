@@ -51,18 +51,13 @@ import launch_testing.actions
 import launch_testing.markers
 import rclpy
 
-# On Ignition Fortress the command-line tool is `ign` (installed at /usr/bin). Locate
-# its directory so the test process can find it regardless of how PATH is set up.
-GZ_TOOLS_BIN = os.path.dirname(shutil.which('ign') or '/usr/bin/ign')
+# Gazebo Harmonic command-line tools live under the ROS vendor prefix and are not
+# always on PATH. Locate `gz` so the test can call it regardless of the environment.
+GZ_TOOLS_BIN = os.path.dirname(shutil.which('gz') or '/usr/bin/gz')
 
 # World name from empty.sdf and the link the spike characterized the estimate on.
 WORLD_NAME = 'empty'
 LINK_NAME = 'diana3_link7'
-
-# Ignition Fortress' entity/system/add service resolves the target by entity id, not
-# by name+type. The world is the first entity the runner creates from empty.sdf, so it
-# has id 1; the robot model is spawned afterwards and never takes this id.
-WORLD_ENTITY_ID = 1
 
 # Applied world-frame +Z force (N) and the acceptance bands for the measured K-frame
 # force. The controller logs the stiffness-frame wrench (tcp_wrench_ = K_F_ext_hat_K),
@@ -114,10 +109,10 @@ def ensure_gz_sim_not_running():
     tests, causing the next test to fail because controllers are still active.
     See https://github.com/ros2/launch/issues/545 for details.
     """
-    subprocess.run(['pkill', '-2', '-f', 'ign gazebo'], check=False)
+    subprocess.run(['pkill', '-2', '-f', '^gz sim'], check=False)
     time.sleep(2)
-    subprocess.run(['pkill', '-9', '-f', 'ign gazebo'], check=False)
-    subprocess.run(['pkill', '-9', '-f', 'ruby.*ign'], check=False)
+    subprocess.run(['pkill', '-9', '-f', '^gz sim'], check=False)
+    subprocess.run(['pkill', '-9', '-f', 'ruby.*gz'], check=False)
     subprocess.run(['pkill', '-9', '-f', 'controller_manager'], check=False)
     subprocess.run(['pkill', '-9', '-f', 'robot_state_publisher'], check=False)
     time.sleep(2)
@@ -133,15 +128,15 @@ def gz_environment():
 def load_apply_link_wrench_system():
     """Load the ApplyLinkWrench system into the running world at runtime."""
     request = (
-        'entity: {{ id: {world_entity_id} }}, '
-        'plugins: {{ filename: "ignition-gazebo-apply-link-wrench-system", '
-        'name: "ignition::gazebo::systems::ApplyLinkWrench" }}'
-    ).format(world_entity_id=WORLD_ENTITY_ID)
+        'entity: {{ name: "{world}", type: WORLD }}, '
+        'plugins: {{ filename: "gz-sim-apply-link-wrench-system", '
+        'name: "gz::sim::systems::ApplyLinkWrench" }}'
+    ).format(world=WORLD_NAME)
     subprocess.run(
         [
-            'ign', 'service', '-s', '/world/{}/entity/system/add'.format(WORLD_NAME),
-            '--reqtype', 'ign_msgs.EntityPlugin_V',
-            '--reptype', 'ign_msgs.Boolean',
+            'gz', 'service', '-s', '/world/{}/entity/system/add'.format(WORLD_NAME),
+            '--reqtype', 'gz.msgs.EntityPlugin_V',
+            '--reptype', 'gz.msgs.Boolean',
             '--req', request,
             '--timeout', '5000',
         ],
@@ -158,8 +153,8 @@ def apply_persistent_force_z(force_z):
     ).format(link=LINK_NAME, force=force_z)
     subprocess.run(
         [
-            'ign', 'topic', '-t', '/world/{}/wrench/persistent'.format(WORLD_NAME),
-            '-m', 'ign_msgs.EntityWrench',
+            'gz', 'topic', '-t', '/world/{}/wrench/persistent'.format(WORLD_NAME),
+            '-m', 'gz.msgs.EntityWrench',
             '-p', message,
         ],
         env=gz_environment(),

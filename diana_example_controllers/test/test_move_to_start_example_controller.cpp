@@ -26,6 +26,7 @@
 #include "hardware_interface/types/hardware_interface_type_values.hpp"
 #include "rclcpp/utilities.hpp"
 #include "rclcpp_lifecycle/node_interfaces/lifecycle_node_interface.hpp"
+#include "ros2_control_test_assets/descriptions.hpp"
 
 const double k_EPS = 1e-5;
 
@@ -52,7 +53,11 @@ void MoveToStartExampleControllerTest::TearDown() {
 }
 
 void MoveToStartExampleControllerTest::SetUpController(const std::string& robot_type) {
-  const auto result = controller_->init("test_move_to_start_example");
+  const auto result = controller_->init("test_move_to_start_example",
+                                        ros2_control_test_assets::minimal_robot_urdf, 30, "",
+                                        rclcpp::NodeOptions()
+                                            .allow_undeclared_parameters(true)
+                                            .automatically_declare_parameters_from_overrides(true));
   ASSERT_EQ(result, controller_interface::return_type::OK);
   controller_->get_node()->set_parameter({"robot_type", robot_type});
   std::vector<LoanedCommandInterface> command_ifs;
@@ -137,13 +142,13 @@ TEST_P(MoveToStartExampleControllerTest, correct_setup_on_update_expect_ok) {
 
   ASSERT_EQ(controller_->update(time, duration), controller_interface::return_type::OK);
 
-  EXPECT_NEAR(joint_1_pos_cmd_.get_value(), 0.0, k_EPS);
-  EXPECT_NEAR(joint_2_pos_cmd_.get_value(), 0.0, k_EPS);
-  EXPECT_NEAR(joint_3_pos_cmd_.get_value(), 0.0, k_EPS);
-  EXPECT_NEAR(joint_4_pos_cmd_.get_value(), 0.0, k_EPS);
-  EXPECT_NEAR(joint_5_pos_cmd_.get_value(), 0.0, k_EPS);
-  EXPECT_NEAR(joint_6_pos_cmd_.get_value(), 0.0, k_EPS);
-  EXPECT_NEAR(joint_7_pos_cmd_.get_value(), 0.0, k_EPS);
+  EXPECT_NEAR(joint_1_pos_cmd_.get_optional().value(), 0.0, k_EPS);
+  EXPECT_NEAR(joint_2_pos_cmd_.get_optional().value(), 0.0, k_EPS);
+  EXPECT_NEAR(joint_3_pos_cmd_.get_optional().value(), 0.0, k_EPS);
+  EXPECT_NEAR(joint_4_pos_cmd_.get_optional().value(), 0.0, k_EPS);
+  EXPECT_NEAR(joint_5_pos_cmd_.get_optional().value(), 0.0, k_EPS);
+  EXPECT_NEAR(joint_6_pos_cmd_.get_optional().value(), 0.0, k_EPS);
+  EXPECT_NEAR(joint_7_pos_cmd_.get_optional().value(), 0.0, k_EPS);
 }
 
 TEST_P(MoveToStartExampleControllerTest, default_start_joint_configuration_matches_robot_type) {

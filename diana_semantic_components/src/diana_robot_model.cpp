@@ -17,6 +17,7 @@
 
 #include <cstring>
 #include <iostream>
+#include <stdexcept>
 #include "rclcpp/logging.hpp"
 namespace {
 
@@ -61,8 +62,15 @@ void DianaRobotModel::initialize() {
 
   if (diana_state_interface != state_interfaces_.end() &&
       diana_model_interface != state_interfaces_.end()) {
-    robot_model_ = bit_cast<diana_hardware::Model*>((*diana_model_interface).get().get_value());
-    robot_state_ = bit_cast<franka::RobotState*>((*diana_state_interface).get().get_value());
+    const auto model_value = (*diana_model_interface).get().get_optional();
+    const auto state_value = (*diana_state_interface).get().get_optional();
+    if (!model_value.has_value() || !state_value.has_value()) {
+      RCLCPP_ERROR(rclcpp::get_logger("diana_model_semantic_component"),
+                   "Could not read the Diana model or state interface.");
+      throw std::runtime_error("Diana state interfaces could not be read");
+    }
+    robot_model_ = bit_cast<diana_hardware::Model*>(model_value.value());
+    robot_state_ = bit_cast<franka::RobotState*>(state_value.value());
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("diana_model_semantic_component"),
                  "Diana interface does not exist! Did you assign the loaned state in the "

@@ -21,11 +21,11 @@ replacing the previous per-launch-file test scripts. Each case includes the
 launch file, waits for the system to come up, and asserts that no unexpected
 [ERROR] messages were logged.
 
-Runs on Humble with Ignition Fortress (CLI ``ign``), so teardown targets the
-``ign gazebo`` process family rather than ``gz sim``.
+Runs on Jazzy with Gazebo Harmonic (CLI ``gz sim``).
 """
 
 import subprocess
+import time
 import unittest
 
 from launch import (
@@ -120,26 +120,20 @@ params = [
 
 
 def ensure_gz_sim_not_running():
-    """
-    Kill any remaining Gazebo/Ignition and controller processes.
+    """Kill any remaining Gazebo and related ROS processes between tests.
 
-    On CI, Ignition and the controller_manager may not shut down in time
+    On CI, gz sim and the controller_manager may not shut down in time
     between parametrized tests, causing the next test to fail because
     controllers are still active. We forcefully kill them here.
     See https://github.com/ros2/launch/issues/545 for details.
-    On Humble (Ignition Fortress) the sim process is 'ign gazebo', not 'gz sim'.
     """
-    patterns = [
-        '^gz sim',        # Gazebo Garden+ (gz-sim)
-        'ign gazebo',     # Ignition Fortress (Humble)
-        'ignition',       # Ignition sub-processes
-        'ruby.*ign',      # Ruby launcher for Ignition
-        'gzserver',       # Classic Gazebo server (fallback)
-        'controller_manager',    # Lingering controller_manager nodes
-        'robot_state_publisher',  # Lingering robot_state_publisher nodes
-    ]
-    for pattern in patterns:
-        subprocess.run(['pkill', '-9', '-f', pattern], check=False)
+    subprocess.run(['pkill', '-2', '-f', '^gz sim'], check=False)
+    time.sleep(2)
+    subprocess.run(['pkill', '-9', '-f', '^gz sim'], check=False)
+    subprocess.run(['pkill', '-9', '-f', 'ruby.*gz'], check=False)
+    subprocess.run(['pkill', '-9', '-f', 'controller_manager'], check=False)
+    subprocess.run(['pkill', '-9', '-f', 'robot_state_publisher'], check=False)
+    time.sleep(2)
 
 
 @launch_testing.parametrize('launch_file, launch_args', params)

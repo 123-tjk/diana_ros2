@@ -81,7 +81,11 @@ controller_interface::return_type MoveToStartExampleController::update(
   Vector7d tau_d_calculated =
       k_gains_.cwiseProduct(q_desired - q_) + d_gains_.cwiseProduct(-dq_filtered_);
   for (int i = 0; i < 7; ++i) {
-    command_interfaces_[i].set_value(tau_d_calculated(i));
+    if (!command_interfaces_[i].set_value(tau_d_calculated(i))) {
+      RCLCPP_ERROR(get_node()->get_logger(), "Failed to set command interface %s value.",
+                   command_interfaces_[i].get_name().c_str());
+      return controller_interface::return_type::ERROR;
+    }
   }
   return controller_interface::return_type::OK;
 }
@@ -173,8 +177,8 @@ void MoveToStartExampleController::updateJointStates() {
     assert(position_interface.get_interface_name() == "position");
     assert(velocity_interface.get_interface_name() == "velocity");
 
-    q_(i) = position_interface.get_value();
-    dq_(i) = velocity_interface.get_value();
+    q_(i) = position_interface.get_optional().value();
+    dq_(i) = velocity_interface.get_optional().value();
   }
 }
 }  // namespace diana_example_controllers

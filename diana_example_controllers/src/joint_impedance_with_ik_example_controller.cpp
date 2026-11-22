@@ -70,9 +70,9 @@ void JointImpedanceWithIKExampleController::update_joint_states() {
     const auto& position_interface = state_interfaces_.at(16 + i);
     const auto& velocity_interface = state_interfaces_.at(23 + i);
     const auto& effort_interface = state_interfaces_.at(30 + i);
-    joint_positions_current_[i] = position_interface.get_value();
-    joint_velocities_current_[i] = velocity_interface.get_value();
-    joint_efforts_current_[i] = effort_interface.get_value();
+    joint_positions_current_[i] = position_interface.get_optional().value();
+    joint_velocities_current_[i] = velocity_interface.get_optional().value();
+    joint_efforts_current_[i] = effort_interface.get_optional().value();
   }
 }
 
@@ -146,11 +146,11 @@ controller_interface::return_type JointImpedanceWithIKExampleController::update(
     std::tie(orientation_, position_) =
         diana_cartesian_pose_->getCurrentOrientationAndTranslation();
 
-    initial_robot_time_ = state_interfaces_.back().get_value();
+    initial_robot_time_ = state_interfaces_.back().get_optional().value();
     elapsed_time_ = 0.0;
     initialization_flag_ = false;
   } else {
-    robot_time_ = state_interfaces_.back().get_value();
+    robot_time_ = state_interfaces_.back().get_optional().value();
     elapsed_time_ = robot_time_ - initial_robot_time_;
   }
   update_joint_states();
@@ -187,7 +187,11 @@ controller_interface::return_type JointImpedanceWithIKExampleController::update(
       joint_positions_desired_eigen, joint_positions_current_eigen, joint_velocities_current_eigen);
 
   for (int i = 0; i < num_joints_; i++) {
-    command_interfaces_[i].set_value(tau_d_calculated(i));
+    if (!command_interfaces_[i].set_value(tau_d_calculated(i))) {
+      RCLCPP_ERROR(get_node()->get_logger(), "Failed to set command interface %s value.",
+                   command_interfaces_[i].get_name().c_str());
+      return controller_interface::return_type::ERROR;
+    }
   }
 
   return controller_interface::return_type::OK;

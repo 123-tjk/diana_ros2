@@ -154,7 +154,7 @@ auto DianaGazeboHardwareInterface::initSim(rclcpp::Node::SharedPtr& model_nh,
                                            std::map<std::string, sim::Entity>& joints,
                                            const hardware_interface::HardwareInfo& hardware_info,
                                            sim::EntityComponentManager& ecm,
-                                           int& update_rate) -> bool {
+                                           unsigned int update_rate) -> bool {
   ecm_ = &ecm;
   model_node_ = model_nh;
 

@@ -61,7 +61,7 @@ class DianaGazeboHardwareInterface : public gz_ros2_control::GazeboSimSystemInte
                std::map<std::string, sim::Entity>& joints,
                const hardware_interface::HardwareInfo& hardware_info,
                sim::EntityComponentManager& ecm,
-               int& update_rate) -> bool override;
+               unsigned int update_rate) -> bool override;
 
   auto on_init(const hardware_interface::HardwareInfo& system_info) -> CallbackReturn override;
 

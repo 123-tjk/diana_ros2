@@ -51,7 +51,7 @@ class ModelExampleController : public controller_interface::ControllerInterface 
  private:
   /// Resolves the robot name of the loaded robot_description, or an empty
   /// string when robot_state_publisher is unavailable.
-  std::string getRobotNameFromDescription() const;
+  std::string getRobotNameFromDescription();
 
   std::string robot_type_;
   std::string arm_prefix_;

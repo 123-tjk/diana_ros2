@@ -50,12 +50,12 @@ controller_interface::return_type ElbowExampleController::update(
   if (initialization_flag_) {
     initial_elbow_configuration_ = diana_cartesian_velocity_->getCurrentElbowConfiguration();
 
-    initial_robot_time_ = state_interfaces_.back().get_value();
+    initial_robot_time_ = state_interfaces_.back().get_optional().value();
     elapsed_time_ = 0.0;
 
     initialization_flag_ = false;
   } else {
-    robot_time_ = state_interfaces_.back().get_value();
+    robot_time_ = state_interfaces_.back().get_optional().value();
     elapsed_time_ = robot_time_ - initial_robot_time_;
   }
 

@@ -32,10 +32,13 @@ class TestLoadControllers : public ::testing::Test {
   void expectControllerLoads(const std::string& controller_name, const std::string& plugin_name) {
     std::shared_ptr<rclcpp::Executor> executor =
         std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+    rclcpp::Logger logger = rclcpp::get_logger("load_controller");
 
-    controller_manager::ControllerManager cm(std::make_unique<hardware_interface::ResourceManager>(
-                                                 ros2_control_test_assets::minimal_robot_urdf),
-                                             executor, "test_cm_" + controller_name);
+    controller_manager::ControllerManager cm(
+        std::make_unique<hardware_interface::ResourceManager>(
+            ros2_control_test_assets::minimal_robot_urdf, std::make_shared<rclcpp::Clock>(),
+            logger),
+        executor, "test_cm_" + controller_name);
 
     auto response = cm.load_controller(controller_name, plugin_name);
 

@@ -41,7 +41,7 @@ class TestDianaRobotStateBroadcaster : public ::testing::Test {
     diana_robot_state_raw_ = diana_robot_state.get();  // Save raw pointer for mocking
 
     broadcaster_ = std::make_unique<DianaRobotStateBroadcaster>(std::move(diana_robot_state));
-    broadcaster_->init("test_broadcaster", "",
+    broadcaster_->init("test_broadcaster", ros2_control_test_assets::minimal_robot_urdf, 30, "",
                        rclcpp::NodeOptions()
                            .allow_undeclared_parameters(true)
                            .automatically_declare_parameters_from_overrides(true));

@@ -12,7 +12,7 @@
   <depend>ament_index_cpp</depend>
   <depend>diana_hardware</depend>
   <depend>gz_ros2_control</depend>
-  <depend>ignition-gazebo6</depend>
+  <depend>gz_sim_vendor</depend>
   <depend>hardware_interface</depend>
   <depend>libfranka</depend>
   <depend>pinocchio</depend>

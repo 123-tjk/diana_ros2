@@ -20,7 +20,8 @@ find_package(ament_index_cpp REQUIRED)
 find_package(Franka 0.18.0 REQUIRED)
 find_package(diana_hardware REQUIRED)
 find_package(gz_ros2_control REQUIRED)
-find_package(ignition-gazebo6 REQUIRED)
+find_package(gz_sim_vendor REQUIRED)
+find_package(gz-sim REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pinocchio REQUIRED)
 find_package(pluginlib REQUIRED)
@@ -48,7 +49,6 @@ ament_target_dependencies(diana_gz_hardware_plugins
         ament_index_cpp
         Franka
         diana_hardware
-        gz_ros2_control
         hardware_interface
         pluginlib
         rclcpp
@@ -56,8 +56,28 @@ ament_target_dependencies(diana_gz_hardware_plugins
         realtime_tools
 )
 
+# gz_ros2_control provides GazeboSimSystemInterface as headers only. Depend on it
+# for include directories without linking its plugin libraries. Linking
+# libgz_hardware_plugins.so / libgz_ros2_control-system.so registers the stock
+# GazeboSimSystem outside class_loader, so createSharedInstance() in initSim()
+# then fails with "no factory exists".
+target_include_directories(diana_gz_hardware_plugins SYSTEM PUBLIC
+        ${gz_ros2_control_INCLUDE_DIRS}
+)
+if(TARGET gz_ros2_control::gz_ros2_control-system)
+        target_include_directories(diana_gz_hardware_plugins SYSTEM PUBLIC
+                $<TARGET_PROPERTY:gz_ros2_control::gz_ros2_control-system,INTERFACE_INCLUDE_DIRECTORIES>
+        )
+elseif(NOT gz_ros2_control_INCLUDE_DIRS)
+        message(FATAL_ERROR
+                "gz_ros2_control provides neither the "
+                "gz_ros2_control::gz_ros2_control-system imported target nor "
+                "gz_ros2_control_INCLUDE_DIRS; cannot locate the "
+                "GazeboSimSystemInterface headers.")
+endif()
+
 target_link_libraries(diana_gz_hardware_plugins
-        ignition-gazebo6::core
+        gz-sim::gz-sim
         pinocchio::pinocchio
 )
 

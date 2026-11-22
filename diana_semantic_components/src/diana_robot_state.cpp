@@ -204,7 +204,13 @@ auto DianaRobotState::get_values_as_message(diana_msgs::msg::DianaRobotState& me
       });
 
   if (diana_state_interface != state_interfaces_.end()) {
-    robot_state_ptr = bit_cast<franka::RobotState*>((*diana_state_interface).get().get_value());
+    const auto interface_value = (*diana_state_interface).get().get_optional();
+    if (!interface_value.has_value()) {
+      RCLCPP_ERROR(rclcpp::get_logger("diana_state_semantic_component"),
+                   "Could not read the Diana state interface.");
+      return false;
+    }
+    robot_state_ptr = bit_cast<franka::RobotState*>(interface_value.value());
   } else {
     RCLCPP_ERROR(rclcpp::get_logger("diana_state_semantic_component"),
                  "Diana state interface does not exist! Did you assign the loaned state in the "
