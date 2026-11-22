@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<xacro:root xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="desktop"
+        params="left_base_x:=0.0 left_base_y:=0.10226963534 left_base_z:=0.421108247415
+                left_base_roll:=-1.04919817121 left_base_pitch:=-0.698280688524 left_base_yaw:=-0.372433749971
+                right_base_x:=0.0 right_base_y:=-0.10226963534 right_base_z:=0.423400099967
+                right_base_roll:=1.05214067504 right_base_pitch:=-0.692711003581 right_base_yaw:=0.362864230278">
+        <link name="base_link">
+            <inertial>
+                <origin rpy="0 0 0" xyz="0.334630290185746 -5.12144748066699E-06 -0.238383830258516"/>
+                <mass value="194.957683518387"/>
+                <inertia ixx="15.7056427325815" ixy="-4.80254107146296E-08" ixz="0.00450756074372358" iyy="5.10803914211727" iyz="-4.13556348736192E-06" izz="16.3902992033727"/>
+            </inertial>
+            <visual>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://dexman_description/meshes/base_link.STL"/>
+                </geometry>
+                <material name="">
+                    <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+                </material>
+            </visual>
+            <collision>
+                <origin rpy="0 0 0" xyz="0 0 0"/>
+                <geometry>
+                    <mesh filename="package://dexman_description/meshes/base_link_collision.STL"/>
+                </geometry>
+            </collision>
+        </link>
+        
+        <joint name="left_base_joint" type="fixed">
+            <origin rpy="${left_base_roll} ${left_base_pitch} ${left_base_yaw}" xyz="${left_base_x} ${left_base_y} ${left_base_z}"/>
+            <parent link="base_link"/>
+            <child link="left_base_link"/>
+            <axis xyz="0 0 0"/>
+        </joint>
+
+        <joint name="right_base_joint" type="fixed">
+            <origin rpy="${right_base_roll} ${right_base_pitch} ${right_base_yaw}" xyz="${right_base_x} ${right_base_y} ${right_base_z}"/>
+            <parent link="base_link"/>
+            <child link="right_base_link"/>
+            <axis xyz="0 0 0"/>
+        </joint>
+    </xacro:macro>
+</xacro:root>

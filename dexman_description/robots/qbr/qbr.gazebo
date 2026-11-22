@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+   <!-- <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>/</robotNamespace>
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      </plugin>
+    </gazebo> -->
+    
+  <xacro:macro name="qbr_hand" params=" description:=qbr xyz:='0 0 0' rpy:='0 0 0'">
+
+    <!--self collision  on-->
+
+    <!--static on-->
+    <xacro:property name="staticValue" value="false" />
+    <!--Gravity off-->
+    <xacro:property name="turnGravityOffValue" value="true" />
+    
+        <!-- Base link -->
+    <gazebo reference="base_link_qbr">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+    </gazebo>
+
+    <!-- Thumb links -->
+    <gazebo reference="link1">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link2">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link3">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link4">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+
+    <!-- Index links -->
+    <gazebo reference="link5">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link6">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link7">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link8">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link9">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link10">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    <gazebo reference="link11">
+        
+        <static>${staticValue}</static>
+        <turnGravityOff>${turnGravityOffValue}</turnGravityOff>
+        <!-- <mu1>0.8</mu1>
+        <mu2>0.8</mu2>  -->
+
+    </gazebo>
+    
+  </xacro:macro>
+</robot>

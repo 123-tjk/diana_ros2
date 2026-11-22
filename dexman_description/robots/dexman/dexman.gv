@@ -1,0 +1,245 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"left_base_link" [label="left_base_link"];
+"left_link1" [label="left_link1"];
+"left_link2" [label="left_link2"];
+"left_link3" [label="left_link3"];
+"left_link4" [label="left_link4"];
+"left_link5" [label="left_link5"];
+"left_link6" [label="left_link6"];
+"left_link7" [label="left_link7"];
+"left_sensor_link" [label="left_sensor_link"];
+"left_flange_link" [label="left_flange_link"];
+"left_palm_link" [label="left_palm_link"];
+"left_camera_link" [label="left_camera_link"];
+"left_index_link1" [label="left_index_link1"];
+"left_index_link2" [label="left_index_link2"];
+"left_index_link3" [label="left_index_link3"];
+"left_index_link4" [label="left_index_link4"];
+"left_index_tactile_link3" [label="left_index_tactile_link3"];
+"left_index_tactile_link2" [label="left_index_tactile_link2"];
+"left_index_tactile_link1" [label="left_index_tactile_link1"];
+"left_middle_link1" [label="left_middle_link1"];
+"left_middle_link2" [label="left_middle_link2"];
+"left_middle_link3" [label="left_middle_link3"];
+"left_middle_link4" [label="left_middle_link4"];
+"left_middle_tactile_link3" [label="left_middle_tactile_link3"];
+"left_middle_tactile_link2" [label="left_middle_tactile_link2"];
+"left_middle_tactile_link1" [label="left_middle_tactile_link1"];
+"left_ring_link1" [label="left_ring_link1"];
+"left_ring_link2" [label="left_ring_link2"];
+"left_ring_link3" [label="left_ring_link3"];
+"left_ring_link4" [label="left_ring_link4"];
+"left_ring_tactile_link3" [label="left_ring_tactile_link3"];
+"left_ring_tactile_link2" [label="left_ring_tactile_link2"];
+"left_ring_tactile_link1" [label="left_ring_tactile_link1"];
+"left_thumb_link1" [label="left_thumb_link1"];
+"left_thumb_link2" [label="left_thumb_link2"];
+"left_thumb_link3" [label="left_thumb_link3"];
+"left_thumb_link4" [label="left_thumb_link4"];
+"left_thumb_tactile_link2" [label="left_thumb_tactile_link2"];
+"left_thumb_tactile_link1" [label="left_thumb_tactile_link1"];
+"left_tool0" [label="left_tool0"];
+"right_base_link" [label="right_base_link"];
+"right_link1" [label="right_link1"];
+"right_link2" [label="right_link2"];
+"right_link3" [label="right_link3"];
+"right_link4" [label="right_link4"];
+"right_link5" [label="right_link5"];
+"right_link6" [label="right_link6"];
+"right_link7" [label="right_link7"];
+"right_sensor_link" [label="right_sensor_link"];
+"right_flange_link" [label="right_flange_link"];
+"right_palm_link" [label="right_palm_link"];
+"right_camera_link" [label="right_camera_link"];
+"right_index_link1" [label="right_index_link1"];
+"right_index_link2" [label="right_index_link2"];
+"right_index_link3" [label="right_index_link3"];
+"right_index_link4" [label="right_index_link4"];
+"right_index_tactile_link3" [label="right_index_tactile_link3"];
+"right_index_tactile_link2" [label="right_index_tactile_link2"];
+"right_index_tactile_link1" [label="right_index_tactile_link1"];
+"right_middle_link1" [label="right_middle_link1"];
+"right_middle_link2" [label="right_middle_link2"];
+"right_middle_link3" [label="right_middle_link3"];
+"right_middle_link4" [label="right_middle_link4"];
+"right_middle_tactile_link3" [label="right_middle_tactile_link3"];
+"right_middle_tactile_link2" [label="right_middle_tactile_link2"];
+"right_middle_tactile_link1" [label="right_middle_tactile_link1"];
+"right_ring_link1" [label="right_ring_link1"];
+"right_ring_link2" [label="right_ring_link2"];
+"right_ring_link3" [label="right_ring_link3"];
+"right_ring_link4" [label="right_ring_link4"];
+"right_ring_tactile_link3" [label="right_ring_tactile_link3"];
+"right_ring_tactile_link2" [label="right_ring_tactile_link2"];
+"right_ring_tactile_link1" [label="right_ring_tactile_link1"];
+"right_thumb_link1" [label="right_thumb_link1"];
+"right_thumb_link2" [label="right_thumb_link2"];
+"right_thumb_link3" [label="right_thumb_link3"];
+"right_thumb_link4" [label="right_thumb_link4"];
+"right_thumb_tactile_link2" [label="right_thumb_tactile_link2"];
+"right_thumb_tactile_link1" [label="right_thumb_tactile_link1"];
+"right_tool0" [label="right_tool0"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "left_base_joint" [label="xyz: 0 0.0998234 0.387588 \nrpy: -1.03138 -0.728261 -0.375522"]
+"left_base_joint" -> "left_base_link"
+"left_base_link" -> "left_joint1" [label="xyz: 0 -2.91507e-12 0.2856 \nrpy: -3.14159 0 0"]
+"left_joint1" -> "left_link1"
+"left_link1" -> "left_joint2" [label="xyz: 0 -0 -0 \nrpy: 1.5708 -0 0"]
+"left_joint2" -> "left_link2"
+"left_link2" -> "left_joint3" [label="xyz: 0 -0.4586 1.60119e-15 \nrpy: -1.5708 0 0"]
+"left_joint3" -> "left_link3"
+"left_link3" -> "left_joint4" [label="xyz: 0.065 -0 -0 \nrpy: 1.5708 -0 0"]
+"left_joint4" -> "left_link4"
+"left_link4" -> "left_joint5" [label="xyz: -0.0528 -0.4554 1.59002e-15 \nrpy: -1.5708 0 0"]
+"left_joint5" -> "left_link5"
+"left_link5" -> "left_joint6" [label="xyz: -0.0122 0 -0 \nrpy: 1.5708 -1.02068e-11 3.14159"]
+"left_joint6" -> "left_link6"
+"left_link6" -> "left_joint7" [label="xyz: 0.087 -0.1169 4.08154e-16 \nrpy: -1.5708 0 0"]
+"left_joint7" -> "left_link7"
+"left_link7" -> "left_sensor_joint" [label="xyz: 0 0 -0.0265 \nrpy: -3.14159 -0 -0.785398"]
+"left_sensor_joint" -> "left_sensor_link"
+"left_sensor_link" -> "left_flange_joint" [label="xyz: 0 0 0.0205 \nrpy: 0 0 -0.785302"]
+"left_flange_joint" -> "left_flange_link"
+"left_flange_link" -> "left_palm_joint" [label="xyz: 0.037581 -0.000196587 0.025 \nrpy: -0.0365929 -2.11758e-22 -9.57069e-05"]
+"left_palm_joint" -> "left_palm_link"
+"left_palm_link" -> "left_camera_joint" [label="xyz: 0.04941 0 0.023801 \nrpy: -1.0472 -5.55112e-17 -1.5708"]
+"left_camera_joint" -> "left_camera_link"
+"left_palm_link" -> "left_index_joint1" [label="xyz: 0.13528 0.0315 0.0017506 \nrpy: 0 -0 0"]
+"left_index_joint1" -> "left_index_link1"
+"left_index_link1" -> "left_index_joint2" [label="xyz: 0 0 0 \nrpy: 1.5708 0.00014676 0"]
+"left_index_joint2" -> "left_index_link2"
+"left_index_link2" -> "left_index_joint3" [label="xyz: 0.040003 0 0 \nrpy: 0 -0 0"]
+"left_index_joint3" -> "left_index_link3"
+"left_index_link3" -> "left_index_joint4" [label="xyz: 0.03 0 0 \nrpy: 0 -0 0.00014676"]
+"left_index_joint4" -> "left_index_link4"
+"left_index_link4" -> "left_index_tactile_joint3" [label="xyz: 0.0029506 -0.0067666 0 \nrpy: 0 -1.5708 -1.76393"]
+"left_index_tactile_joint3" -> "left_index_tactile_link3"
+"left_index_link3" -> "left_index_tactile_joint2" [label="xyz: 0.0041704 0.0024994 0 \nrpy: 0 -1.5708 4.7122"]
+"left_index_tactile_joint2" -> "left_index_tactile_link2"
+"left_index_link2" -> "left_index_tactile_joint1" [label="xyz: 0.0072627 0.0025011 0 \nrpy: 0 -1.5708 -1.57066"]
+"left_index_tactile_joint1" -> "left_index_tactile_link1"
+"left_palm_link" -> "left_middle_joint1" [label="xyz: 0.13528 0 0.0017506 \nrpy: 0 -0 0"]
+"left_middle_joint1" -> "left_middle_link1"
+"left_middle_link1" -> "left_middle_joint2" [label="xyz: 0 0 0 \nrpy: 1.5708 -0 0"]
+"left_middle_joint2" -> "left_middle_link2"
+"left_middle_link2" -> "left_middle_joint3" [label="xyz: 0.039999 1.0076e-05 0 \nrpy: 0 0 -0.00014676"]
+"left_middle_joint3" -> "left_middle_link3"
+"left_middle_link3" -> "left_middle_joint4" [label="xyz: 0.03 0 0 \nrpy: 0 -0 0"]
+"left_middle_joint4" -> "left_middle_link4"
+"left_middle_link4" -> "left_middle_tactile_joint3" [label="xyz: 0.0029554 -0.0067793 0 \nrpy: 0 -1.5708 -1.76393"]
+"left_middle_tactile_joint3" -> "left_middle_tactile_link3"
+"left_middle_link3" -> "left_middle_tactile_joint2" [label="xyz: 0.0041704 0.0024994 0 \nrpy: 0 -1.5708 4.7122"]
+"left_middle_tactile_joint2" -> "left_middle_tactile_link2"
+"left_middle_link2" -> "left_middle_tactile_joint1" [label="xyz: 0.0072631 0.0025 0 \nrpy: 0 -1.5708 -1.57081"]
+"left_middle_tactile_joint1" -> "left_middle_tactile_link1"
+"left_palm_link" -> "left_ring_joint1" [label="xyz: 0.13528 -0.0315 0.0017506 \nrpy: 0 -0 0"]
+"left_ring_joint1" -> "left_ring_link1"
+"left_ring_link1" -> "left_ring_joint2" [label="xyz: 0 0 0 \nrpy: 1.5708 0.00014676 0"]
+"left_ring_joint2" -> "left_ring_link2"
+"left_ring_link2" -> "left_ring_joint3" [label="xyz: 0.040002 0 0 \nrpy: 0 -0 0"]
+"left_ring_joint3" -> "left_ring_link3"
+"left_ring_link3" -> "left_ring_joint4" [label="xyz: 0.03 0 0 \nrpy: 0 -0 0"]
+"left_ring_joint4" -> "left_ring_link4"
+"left_ring_link4" -> "left_ring_tactile_joint3" [label="xyz: 0.0029528 -0.0067712 0 \nrpy: 0 -1.5708 -1.76393"]
+"left_ring_tactile_joint3" -> "left_ring_tactile_link3"
+"left_ring_link3" -> "left_ring_tactile_joint2" [label="xyz: 0.00417 0.0025 0 \nrpy: 0 -1.5708 -1.5708"]
+"left_ring_tactile_joint2" -> "left_ring_tactile_link2"
+"left_ring_link2" -> "left_ring_tactile_joint1" [label="xyz: 0.0072627 0.0025011 0 \nrpy: 0 -1.5708 -1.57066"]
+"left_ring_tactile_joint1" -> "left_ring_tactile_link1"
+"left_palm_link" -> "left_thumb_joint1" [label="xyz: 0.039278 0.0365 0.0017506 \nrpy: 0 -0 0"]
+"left_thumb_joint1" -> "left_thumb_link1"
+"left_thumb_link1" -> "left_thumb_joint2" [label="xyz: 0 0 0 \nrpy: 1.5708 -5.55112e-17 1.5576"]
+"left_thumb_joint2" -> "left_thumb_link2"
+"left_thumb_link2" -> "left_thumb_joint3" [label="xyz: 0.038999 0.0090001 0.0215 \nrpy: 1.5708 0.013237 8.67438e-19"]
+"left_thumb_joint3" -> "left_thumb_link3"
+"left_thumb_link3" -> "left_thumb_joint4" [label="xyz: 0.065494 0.00086701 0 \nrpy: 0 -0 0"]
+"left_thumb_joint4" -> "left_thumb_link4"
+"left_thumb_link4" -> "left_thumb_tactile_joint2" [label="xyz: 0.0044234 -0.0069828 0 \nrpy: 0 -1.5708 -1.8326"]
+"left_thumb_tactile_joint2" -> "left_thumb_tactile_link2"
+"left_thumb_link3" -> "left_thumb_tactile_joint1" [label="xyz: 0.0063893 0.004585 0 \nrpy: 0 -1.5708 -1.584"]
+"left_thumb_tactile_joint1" -> "left_thumb_tactile_link1"
+"left_link7" -> "left_tool0_fixed" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"left_tool0_fixed" -> "left_tool0"
+"base_link" -> "right_base_joint" [label="xyz: 0 -0.0998234 0.37939 \nrpy: 1.0409 -0.728205 0.362602"]
+"right_base_joint" -> "right_base_link"
+"right_base_link" -> "right_joint1" [label="xyz: 0 -2.91507e-12 0.2856 \nrpy: -3.14159 0 0"]
+"right_joint1" -> "right_link1"
+"right_link1" -> "right_joint2" [label="xyz: 0 -0 -0 \nrpy: 1.5708 -0 0"]
+"right_joint2" -> "right_link2"
+"right_link2" -> "right_joint3" [label="xyz: 0 -0.4586 1.60119e-15 \nrpy: -1.5708 0 0"]
+"right_joint3" -> "right_link3"
+"right_link3" -> "right_joint4" [label="xyz: 0.065 -0 -0 \nrpy: 1.5708 -0 0"]
+"right_joint4" -> "right_link4"
+"right_link4" -> "right_joint5" [label="xyz: -0.0528 -0.4554 1.59002e-15 \nrpy: -1.5708 0 0"]
+"right_joint5" -> "right_link5"
+"right_link5" -> "right_joint6" [label="xyz: -0.0122 0 -0 \nrpy: 1.5708 -1.02068e-11 3.14159"]
+"right_joint6" -> "right_link6"
+"right_link6" -> "right_joint7" [label="xyz: 0.087 -0.1169 4.08154e-16 \nrpy: -1.5708 0 0"]
+"right_joint7" -> "right_link7"
+"right_link7" -> "right_sensor_joint" [label="xyz: 0 0 -0.0265 \nrpy: -3.14159 -0 -0.785398"]
+"right_sensor_joint" -> "right_sensor_link"
+"right_sensor_link" -> "right_flange_joint" [label="xyz: 0 0 0.0205 \nrpy: 0.459084 -2.77556e-17 -0.785302"]
+"right_flange_joint" -> "right_flange_link"
+"right_flange_link" -> "right_palm_joint" [label="xyz: 0.037581 0.0109019 0.0224986 \nrpy: -0.422491 -4.23653e-05 -8.57441e-05"]
+"right_palm_joint" -> "right_palm_link"
+"right_palm_link" -> "right_camera_joint" [label="xyz: 0.04941 0 0.0238 \nrpy: 1.0472 -5.55112e-17 1.5708"]
+"right_camera_joint" -> "right_camera_link"
+"right_palm_link" -> "right_index_joint1" [label="xyz: 0.13528 -0.0315 0.0017501 \nrpy: -3.14159 -0 -3.14159"]
+"right_index_joint1" -> "right_index_link1"
+"right_index_link1" -> "right_index_joint2" [label="xyz: 0 0 0 \nrpy: -1.5708 4.23516e-22 -3.14159"]
+"right_index_joint2" -> "right_index_link2"
+"right_index_link2" -> "right_index_joint3" [label="xyz: 0.039999 1.0069e-05 0 \nrpy: 0 -0 0"]
+"right_index_joint3" -> "right_index_link3"
+"right_index_link3" -> "right_index_joint4" [label="xyz: 0.030001 -1.0072e-05 0 \nrpy: 0 -0 0"]
+"right_index_joint4" -> "right_index_link4"
+"right_index_link4" -> "right_index_tactile_joint3" [label="xyz: 0.0029533 -0.0067786 0 \nrpy: 0 -1.5708 4.51911"]
+"right_index_tactile_joint3" -> "right_index_tactile_link3"
+"right_index_link3" -> "right_index_tactile_joint2" [label="xyz: 0.0041708 0.0024988 0 \nrpy: 0 -1.5708 4.7121"]
+"right_index_tactile_joint2" -> "right_index_tactile_link2"
+"right_index_link2" -> "right_index_tactile_joint1" [label="xyz: 0.00726311 0.0025 0 \nrpy: 0 -1.5708 -1.5708"]
+"right_index_tactile_joint1" -> "right_index_tactile_link1"
+"right_palm_link" -> "right_middle_joint1" [label="xyz: 0.13528 0 0.0017501 \nrpy: -3.14159 -0 -3.14159"]
+"right_middle_joint1" -> "right_middle_link1"
+"right_middle_link1" -> "right_middle_joint2" [label="xyz: 0 0 0 \nrpy: -1.5708 4.23516e-22 -3.14159"]
+"right_middle_joint2" -> "right_middle_link2"
+"right_middle_link2" -> "right_middle_joint3" [label="xyz: 0.039999 1.0076e-05 0 \nrpy: 0 -0 0"]
+"right_middle_joint3" -> "right_middle_link3"
+"right_middle_link3" -> "right_middle_joint4" [label="xyz: 0.03 0 0 \nrpy: 0 -0 0"]
+"right_middle_joint4" -> "right_middle_link4"
+"right_middle_link4" -> "right_middle_tactile_joint3" [label="xyz: 0.00295439 -0.00677974 0 \nrpy: 0 -1.5708 4.51911"]
+"right_middle_tactile_joint3" -> "right_middle_tactile_link3"
+"right_middle_link3" -> "right_middle_tactile_joint2" [label="xyz: 0.00417076 0.00249876 0 \nrpy: 0 -1.5708 1.5705"]
+"right_middle_tactile_joint2" -> "right_middle_tactile_link2"
+"right_middle_link2" -> "right_middle_tactile_joint1" [label="xyz: 0.00726311 0.0025 0 \nrpy: 0 -1.5708 -1.5708"]
+"right_middle_tactile_joint1" -> "right_middle_tactile_link1"
+"right_palm_link" -> "right_ring_joint1" [label="xyz: 0.13528 0.0315 0.0017501 \nrpy: -3.14159 -0 -3.14159"]
+"right_ring_joint1" -> "right_ring_link1"
+"right_ring_link1" -> "right_ring_joint2" [label="xyz: 0 0 0 \nrpy: -1.5708 4.23516e-22 -3.14159"]
+"right_ring_joint2" -> "right_ring_link2"
+"right_ring_link2" -> "right_ring_joint3" [label="xyz: 0.039998 1.0704e-05 0 \nrpy: 0 -0 0"]
+"right_ring_joint3" -> "right_ring_link3"
+"right_ring_link3" -> "right_ring_joint4" [label="xyz: 0.03 0 0 \nrpy: 0 -0 0"]
+"right_ring_joint4" -> "right_ring_link4"
+"right_ring_link4" -> "right_ring_tactile_joint3" [label="xyz: 0.00295557 -0.00678474 0 \nrpy: 0 -1.5708 4.51912"]
+"right_ring_tactile_joint3" -> "right_ring_tactile_link3"
+"right_ring_link3" -> "right_ring_tactile_joint2" [label="xyz: 0.00417038 0.0024994 0 \nrpy: 0 -1.5708 4.71225"]
+"right_ring_tactile_joint2" -> "right_ring_tactile_link2"
+"right_ring_link2" -> "right_ring_tactile_joint1" [label="xyz: 0.00726311 0.0025 0 \nrpy: 0 -1.5708 -1.5708"]
+"right_ring_tactile_joint1" -> "right_ring_tactile_link1"
+"right_palm_link" -> "right_thumb_joint1" [label="xyz: 0.039278 -0.0365 0.0017501 \nrpy: -3.14159 -0 -3.14159"]
+"right_thumb_joint1" -> "right_thumb_link1"
+"right_thumb_link1" -> "right_thumb_joint2" [label="xyz: 0 0 0 \nrpy: -1.5708 -5.55112e-17 -1.584"]
+"right_thumb_joint2" -> "right_thumb_link2"
+"right_thumb_link2" -> "right_thumb_joint3" [label="xyz: 0.038999 0.015063 -0.0215 \nrpy: -1.5708 -0.013237 8.67438e-19"]
+"right_thumb_joint3" -> "right_thumb_link3"
+"right_thumb_link3" -> "right_thumb_joint4" [label="xyz: 0.065494 0.00086701 0 \nrpy: 0 -0 0"]
+"right_thumb_joint4" -> "right_thumb_link4"
+"right_thumb_link4" -> "right_thumb_tactile_joint2" [label="xyz: 0.0044234 -0.0069828 -0.0060631 \nrpy: 0 -1.5708 -1.8326"]
+"right_thumb_tactile_joint2" -> "right_thumb_tactile_link2"
+"right_thumb_link3" -> "right_thumb_tactile_joint1" [label="xyz: 0.0063893 0.004585 -0.0060631 \nrpy: 0 -1.5708 -1.584"]
+"right_thumb_tactile_joint1" -> "right_thumb_tactile_link1"
+"right_link7" -> "right_tool0_fixed" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"right_tool0_fixed" -> "right_tool0"
+}

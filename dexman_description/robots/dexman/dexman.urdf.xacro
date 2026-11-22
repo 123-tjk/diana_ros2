@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dexman">
+    <!-- use_hands turns both hands on or off. left_hand and right_hand choose
+         the model when the switch is on.
+         dh13: Paxini sensor, flange, and hand. qrby: previous sensor and hand.
+         none: Paxini sensor and flange, with no hand. -->
+    <xacro:arg name="use_hands" default="false"/>
+    <xacro:arg name="left_hand" default="dh13"/>
+    <xacro:arg name="right_hand" default="dh13"/>
+    <xacro:property name="left_hand_type" value="$(arg left_hand)"/>
+    <xacro:property name="right_hand_type" value="$(arg right_hand)"/>
+    <xacro:unless value="$(arg use_hands)">
+        <xacro:property name="left_hand_type" value="none"/>
+        <xacro:property name="right_hand_type" value="none"/>
+    </xacro:unless>
+    <xacro:unless value="${left_hand_type == 'dh13' or left_hand_type == 'qrby' or left_hand_type == 'none'}">
+        <xacro:property name="bad_left_hand" value="${left_hand_must_be_dh13_qrby_or_none}" lazy_eval="false"/>
+    </xacro:unless>
+    <xacro:unless value="${right_hand_type == 'dh13' or right_hand_type == 'qrby' or right_hand_type == 'none'}">
+        <xacro:property name="bad_right_hand" value="${right_hand_must_be_dh13_qrby_or_none}" lazy_eval="false"/>
+    </xacro:unless>
+
+    <!-- Calibrated dual-arm installation parameters.
+         The active xacro profile is shared by control and MoveIt. -->
+    <xacro:include filename="$(find dexman_description)/robots/dexman/installation.urdf.xacro"/>
+
+    <!-- Diana arms. arm_prefix "left" becomes link names left_<robot_type>_link*.
+         connected_to creates the mount frame the desktop joint already expects. -->
+    <xacro:arg name="robot_type" default="diana7"/>
+    <xacro:include filename="$(find diana_description)/robots/common/diana_robot.xacro"/>
+    <xacro:macro name="dexman_diana_arm" params="side">
+        <xacro:diana_robot
+            robot_type="$(arg robot_type)"
+            hand="false"
+            ee_id="none"
+            arm_prefix="${side}_"
+            connected_to="${side}_base_link"/>
+    </xacro:macro>
+    <xacro:dexman_diana_arm side="left"/>
+    <xacro:dexman_diana_arm side="right"/>
+
+    <!-- base link desktop -->
+    <xacro:include filename="$(find dexman_description)/robots/dexman/desktop.urdf.xacro"/>
+    <xacro:desktop
+        left_base_x="${dexman_left_base_x}" left_base_y="${dexman_left_base_y}" left_base_z="${dexman_left_base_z}"
+        left_base_roll="${dexman_left_base_roll}" left_base_pitch="${dexman_left_base_pitch}" left_base_yaw="${dexman_left_base_yaw}"
+        right_base_x="${dexman_right_base_x}" right_base_y="${dexman_right_base_y}" right_base_z="${dexman_right_base_z}"
+        right_base_roll="${dexman_right_base_roll}" right_base_pitch="${dexman_right_base_pitch}" right_base_yaw="${dexman_right_base_yaw}"/>
+
+    <!-- Wrist sensors. The macro selects the old or new mount from the hand arguments. -->
+    <xacro:include filename="$(find dexman_description)/robots/dexman/sensors.urdf.xacro"/>
+    <xacro:sensors
+        left_hand="${left_hand_type}"
+        right_hand="${right_hand_type}"
+        left_flange="left_$(arg robot_type)_link7"
+        right_flange="right_$(arg robot_type)_link7"/>
+
+    <xacro:include filename="$(find dexman_description)/robots/dh13/dh13.urdf.xacro"/>
+    <xacro:include filename="$(find dexman_description)/robots/qbl/qbl.xacro"/>
+    <xacro:include filename="$(find dexman_description)/robots/qbr/qbr.xacro"/>
+    <xacro:if value="${left_hand_type == 'dh13'}">
+        <xacro:dh13 side="left"/>
+    </xacro:if>
+    <xacro:if value="${right_hand_type == 'dh13'}">
+        <xacro:dh13 side="right"/>
+    </xacro:if>
+    <xacro:if value="${left_hand_type == 'qrby'}">
+        <xacro:qbl/>
+        <joint name="left_hand_joint" type="fixed">
+            <origin rpy="1.5708 0 2.35619449" xyz="0 0 0.046"/>
+            <parent link="left_sensor_link"/>
+            <child link="left_hand_base"/>
+            <axis xyz="0 0 0"/>
+        </joint>
+    </xacro:if>
+    <xacro:if value="${right_hand_type == 'qrby'}">
+        <xacro:qbr/>
+        <joint name="right_hand_joint" type="fixed">
+            <origin rpy="1.5708 0 2.35619449" xyz="0 0 0.046"/>
+            <parent link="right_sensor_link"/>
+            <child link="right_hand_base"/>
+            <axis xyz="0 0 0"/>
+        </joint>
+    </xacro:if>
+</robot>

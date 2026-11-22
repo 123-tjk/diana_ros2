@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dexman_installation">
+  <!--
+    The active profile is deliberately a xacro include rather than a YAML
+    parser.  This keeps direct xacro expansion and MoveIt on the same profile.
+    Launch files may override any of these args with xacro mappings.
+  -->
+  <xacro:include filename="$(find dexman_description)/config/active_installation_params.xacro" />
+
+  <xacro:arg name="left_base_x" default="${dexman_active_left_base_x}" />
+  <xacro:arg name="left_base_y" default="${dexman_active_left_base_y}" />
+  <xacro:arg name="left_base_z" default="${dexman_active_left_base_z}" />
+  <xacro:arg name="left_base_roll" default="${dexman_active_left_base_roll}" />
+  <xacro:arg name="left_base_pitch" default="${dexman_active_left_base_pitch}" />
+  <xacro:arg name="left_base_yaw" default="${dexman_active_left_base_yaw}" />
+
+  <xacro:arg name="right_base_x" default="${dexman_active_right_base_x}" />
+  <xacro:arg name="right_base_y" default="${dexman_active_right_base_y}" />
+  <xacro:arg name="right_base_z" default="${dexman_active_right_base_z}" />
+  <xacro:arg name="right_base_roll" default="${dexman_active_right_base_roll}" />
+  <xacro:arg name="right_base_pitch" default="${dexman_active_right_base_pitch}" />
+  <xacro:arg name="right_base_yaw" default="${dexman_active_right_base_yaw}" />
+
+  <xacro:property name="dexman_left_base_x" value="$(arg left_base_x)" />
+  <xacro:property name="dexman_left_base_y" value="$(arg left_base_y)" />
+  <xacro:property name="dexman_left_base_z" value="$(arg left_base_z)" />
+  <xacro:property name="dexman_left_base_roll" value="$(arg left_base_roll)" />
+  <xacro:property name="dexman_left_base_pitch" value="$(arg left_base_pitch)" />
+  <xacro:property name="dexman_left_base_yaw" value="$(arg left_base_yaw)" />
+
+  <xacro:property name="dexman_right_base_x" value="$(arg right_base_x)" />
+  <xacro:property name="dexman_right_base_y" value="$(arg right_base_y)" />
+  <xacro:property name="dexman_right_base_z" value="$(arg right_base_z)" />
+  <xacro:property name="dexman_right_base_roll" value="$(arg right_base_roll)" />
+  <xacro:property name="dexman_right_base_pitch" value="$(arg right_base_pitch)" />
+  <xacro:property name="dexman_right_base_yaw" value="$(arg right_base_yaw)" />
+</robot>

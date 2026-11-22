@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dexman">
+  <!-- Whole-robot description plus one ros2_control system per arm. -->
+  <xacro:arg name="robot_type" default="diana7"/>
+  <xacro:arg name="left_robot_ip" default="192.168.20.2"/>
+  <xacro:arg name="right_robot_ip" default="192.168.20.3"/>
+  <xacro:arg name="use_fake_hardware" default="false"/>
+  <xacro:arg name="fake_sensor_commands" default="false"/>
+  <xacro:arg name="use_hands" default="false"/>
+  <xacro:arg name="left_hand" default="dh13"/>
+  <xacro:arg name="right_hand" default="dh13"/>
+
+  <!-- Mappings passed to xacro reach the included file's arguments. -->
+  <xacro:include filename="$(find dexman_description)/robots/dexman/dexman.urdf.xacro"/>
+
+  <xacro:include filename="$(find diana_hardware)/ros2_control/diana_arm.ros2_control.xacro"/>
+
+  <xacro:macro name="dexman_arm_hardware" params="side robot_ip">
+    <xacro:property name="modified_prefix" value="${side}_"/>
+    <xacro:diana_arm_ros2_control
+        robot_type="$(arg robot_type)"
+        include_effort_command="true"
+        include_finger_joint="false"
+        arm_prefix="${modified_prefix}"
+        is_async="false"
+        thread_priority="50">
+      <hardware_plugin>
+        <xacro:if value="$(arg use_fake_hardware)">
+          <plugin>mock_components/GenericSystem</plugin>
+          <param name="mock_sensor_commands">$(arg fake_sensor_commands)</param>
+          <param name="state_following_offset">0.0</param>
+        </xacro:if>
+        <xacro:unless value="$(arg use_fake_hardware)">
+          <plugin>diana_hardware/DianaHardwareInterface</plugin>
+          <param name="robot_ip">${robot_ip}</param>
+          <param name="arm_prefix">${modified_prefix}</param>
+        </xacro:unless>
+      </hardware_plugin>
+    </xacro:diana_arm_ros2_control>
+  </xacro:macro>
+
+  <xacro:dexman_arm_hardware side="left" robot_ip="$(arg left_robot_ip)"/>
+  <xacro:dexman_arm_hardware side="right" robot_ip="$(arg right_robot_ip)"/>
+</robot>

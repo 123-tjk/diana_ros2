@@ -1,0 +1,17 @@
+# Dual-arm Dexman bringup. Loaded by dexman.launch.py.
+# Boolean values are quoted so the launch file can pass them to xacro.
+robot_type: "diana7"
+use_fake_hardware: "false"
+fake_sensor_commands: "false"
+use_rviz: "true"
+# Master switch for both DexH13 hands. left_hand and right_hand choose the
+# model used when this is "true".
+use_hands: "false"
+left_hand: "dh13"
+right_hand: "dh13"
+left:
+  arm_prefix: "left"
+  robot_ip: "192.168.20.2"
+right:
+  arm_prefix: "right"
+  robot_ip: "192.168.20.3"

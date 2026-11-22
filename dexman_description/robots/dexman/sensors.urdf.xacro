@@ -1,0 +1,191 @@
+<?xml version="1.0" ?>
+<xacro:root xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- Wrist mount follows the hand selected in dexman.urdf.xacro.
+         qrby keeps the previous sensor. dh13 and none use the Paxini sensor and flange.
+         Link7 is the parent, so the exported base_link pose is not used. -->
+    <xacro:macro name="sensors" params="left_hand right_hand left_flange:='left_diana7_link7' right_flange:='right_diana7_link7'">
+        <xacro:if value="${left_hand == 'qrby'}">
+            <link name="left_sensor_link">
+                <inertial>
+                    <origin xyz="-0.000631303062396116 -0.000794160782422337 0.0243277126300799" rpy="0 0 0"/>
+                    <mass value="0.306317803863396"/>
+                    <inertia ixx="0.000126933917921841" ixy="2.57222336669211E-07" ixz="7.89818976807741E-07" iyy="0.000127360300281999" iyz="-3.5846649010714E-08" izz="0.000242410810367609"/>
+                </inertial>
+                <visual>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/left_sensor_link.STL"/>
+                    </geometry>
+                    <material name="">
+                        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+                    </material>
+                </visual>
+                <collision>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/left_sensor_link.STL"/>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name="left_sensor_joint" type="fixed">
+                <origin xyz="0 0 0" rpy="0 3.14159265358979 2.35619449"/>
+                <parent link="${left_flange}"/>
+                <child link="left_sensor_link"/>
+                <axis xyz="0 0 0"/>
+            </joint>
+        </xacro:if>
+        <xacro:unless value="${left_hand == 'qrby'}">
+            <link name="left_sensor_link">
+                <inertial>
+                    <origin xyz="-0.000659948084134165 -0.00132228074948995 -0.0108888779069592" rpy="0 0 0"/>
+                    <mass value="0.201244487658623"/>
+                    <inertia ixx="8.9009300320499E-05" ixy="2.19636826510955E-07" ixz="7.76470511430065E-07" iyy="8.928079179654E-05" iyz="1.60758287979352E-07" izz="0.000168170796733374"/>
+                </inertial>
+                <visual>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/dh13/left/left_sensor_link.STL"/>
+                    </geometry>
+                    <material name="">
+                        <color rgba="1 1 1 1"/>
+                    </material>
+                </visual>
+                <collision>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/dh13/left/left_sensor_link.STL"/>
+                    </geometry>
+                </collision>
+            </link>
+
+            <link name="left_flange_link">
+                <inertial>
+                    <origin xyz="0.0177159238028049 7.95038163925454E-06 0.00939134779029491" rpy="0 0 0"/>
+                    <mass value="0.0520352377698417"/>
+                    <inertia ixx="3.06768963700266E-05" ixy="3.5831395364719E-09" ixz="-1.3019287276041E-05" iyy="3.75795020226557E-05" iyz="2.58417738719514E-09" izz="3.75179886330221E-05"/>
+                </inertial>
+                <visual>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/dh13/left/left_flange_link.STL"/>
+                    </geometry>
+                    <material name="">
+                        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1"/>
+                    </material>
+                </visual>
+                <collision>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/dh13/left/left_flange_link.STL"/>
+                    </geometry>
+                </collision>
+            </link>
+
+            <joint name="left_sensor_joint" type="fixed">
+                <origin xyz="0 0 -0.0265000000003847" rpy="-3.14159265358979 0 -0.785398162491984"/>
+                <parent link="${left_flange}"/>
+                <child link="left_sensor_link"/>
+                <axis xyz="0 0 0"/>
+            </joint>
+
+            <joint name="left_flange_joint" type="fixed">
+                <origin xyz="0 0 0.0204999999999999" rpy="0 0 -0.785302489963334"/>
+                <parent link="left_sensor_link"/>
+                <child link="left_flange_link"/>
+                <axis xyz="0 0 0"/>
+            </joint>
+        </xacro:unless>
+
+        <xacro:if value="${right_hand == 'qrby'}">
+            <link name="right_sensor_link">
+                <inertial>
+                    <origin xyz="-0.0006313031199916 -0.000794160879818095 0.0243277125962054" rpy="0 0 0"/>
+                    <mass value="0.3063178042108"/>
+                    <inertia ixx="0.000126933917860274" ixy="2.57222420485171E-07" ixz="7.89819122602258E-07" iyy="0.000127360299818112" iyz="-3.58467069572874E-08" izz="0.000242410809919104"/>
+                </inertial>
+                <visual>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/right_sensor_link.STL"/>
+                    </geometry>
+                    <material name="">
+                        <color rgba="0.752941176470588 0.752941176470588 0.752941176470588 1"/>
+                    </material>
+                </visual>
+                <collision>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/right_sensor_link.STL"/>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name="right_sensor_joint" type="fixed">
+                <origin xyz="0 0 0" rpy="0 3.14159265358979 2.35619449"/>
+                <parent link="${right_flange}"/>
+                <child link="right_sensor_link"/>
+                <axis xyz="0 0 0"/>
+            </joint>
+        </xacro:if>
+        <xacro:unless value="${right_hand == 'qrby'}">
+            <link name="right_sensor_link">
+                <inertial>
+                    <origin xyz="-0.000664421801532977 -0.00133124481267111 -0.0109538359831776" rpy="0 0 0"/>
+                    <mass value="0.199889440464833"/>
+                    <inertia ixx="8.89800667804116E-05" ixy="2.19636995747324E-07" ixz="7.76470426019231E-07" iyy="8.92515582173312E-05" iyz="1.6075829984995E-07" izz="0.000168163546602234"/>
+                </inertial>
+                <visual>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/dh13/right/right_sensor_link.STL"/>
+                    </geometry>
+                    <material name="">
+                        <color rgba="1 1 1 1"/>
+                    </material>
+                </visual>
+                <collision>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/dh13/right/right_sensor_link.STL"/>
+                    </geometry>
+                </collision>
+            </link>
+
+            <link name="right_flange_link">
+                <inertial>
+                    <origin xyz="0.0177159243321879 0.00416869043385237 0.00841543303251846" rpy="0 0 0"/>
+                    <mass value="0.0520352419609592"/>
+                    <inertia ixx="3.06768976687132E-05" ixy="-5.76599291910523E-06" ixz="-1.16728403083715E-05" iyy="3.75694767711341E-05" iyz="-2.28673916374735E-08" izz="3.75280161780284E-05"/>
+                </inertial>
+                <visual>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/dh13/right/right_flange_link.STL"/>
+                    </geometry>
+                    <material name="">
+                        <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1"/>
+                    </material>
+                </visual>
+                <collision>
+                    <origin xyz="0 0 0" rpy="0 0 0"/>
+                    <geometry>
+                        <mesh filename="package://dexman_description/meshes/dh13/right/right_flange_link.STL"/>
+                    </geometry>
+                </collision>
+            </link>
+
+            <joint name="right_sensor_joint" type="fixed">
+                <origin xyz="0 0 -0.0264999999999777" rpy="-3.14159265358971 0 -0.785398162492313"/>
+                <parent link="${right_flange}"/>
+                <child link="right_sensor_link"/>
+                <axis xyz="0 0 0"/>
+            </joint>
+
+            <joint name="right_flange_joint" type="fixed">
+                <origin xyz="0 0 0.0205000000000001" rpy="0.459084195001731 0 -0.785302489963326"/>
+                <parent link="right_sensor_link"/>
+                <child link="right_flange_link"/>
+                <axis xyz="0 0 0"/>
+            </joint>
+        </xacro:unless>
+    </xacro:macro>
+</xacro:root>
