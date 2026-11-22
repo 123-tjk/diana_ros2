@@ -1,0 +1,3 @@
+[submodule "diana_description"]
+	path = diana_description
+	url = https://github.com/AgileRobots-APAC/diana_description
